@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌼MyMemories-MAJ-📖</title>
+ <style>
+    /* Estilo general de la página */
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+      font-family: 'Roboto', sans-serif;
+    }
+.dedicatoria-extra2 {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: #ffcc00;
+  font-size: 0.9rem;
+  font-family: 'Brush Script MT', cursive;
+  z-index: 4;
+  opacity: 0;
+  text-align: left;
+  max-width: 90%;
+  white-space: nowrap;
+}
+
+    /* Contenedor de la escena en 3D */
+    .scene {
+      width: 200px;
+      height: 200px;
+      perspective: 1000px; 
+    }
+
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotate 10s infinite linear; 
+    }
+
+    /* Caras del cubo */
+    .face {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background-color: #ffcc00;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      color: white;
+      font-weight: bold;
+      border: 3px solid #333;
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Posiciones 3D de las caras */
+    .front  { 
+      transform: translateZ(100px);
+      background-image: url('kirby2.jpeg'); /* Ruta a la imagen local */
+    }
+    .back   { 
+      transform: rotateY(180deg) translateZ(100px);
+      background-image: url('kirby3.jpeg'); /* Ruta a la imagen local */
+    }
+    .right  { 
+      transform: rotateY(90deg) translateZ(100px);
+      background-image: url('kirby4.jpeg'); 
+    }
+    .left   { 
+      transform: rotateY(-90deg) translateZ(100px);
+      background-image: url('kirby5.jpeg'); 
+    }
+    .top    { 
+      transform: rotateX(90deg) translateZ(100px);
+      background-image: url('kirby6.jpeg'); 
+    }
+    .bottom { 
+      transform: rotateX(-90deg) translateZ(100px);
+      background-image: url('kirby1.webp'); 
+    }
+
+    /* Animación de rotación del cubo */
+    @keyframes rotate {
+      0%   { transform: rotateX(0deg) rotateY(0deg); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+.modal {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Fondo oscuro */
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Modal content */
+.modal-content {
+  position: relative; /* Necesario para que el pseudo-elemento se posicione correctamente */
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+  background-size: cover;
+  background-position: center;
+  height: 300px; /* Ajustar altura */
+  overflow: hidden; /* Asegurarnos de que no haya desbordes */
+}
+
+.modal-content::before {
+  content: ''; /* Necesario para el pseudo-elemento */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Color negro semi-transparente */
+  z-index: 1; /* Aseguramos que esta capa esté encima de la imagen */
+}
+.modal-content h2 {
+  z-index: 2; /* Aseguramos que el texto esté encima de la capa */
+  position: relative;
+  color: white;
+}
+
+.modal .close {
+  font-size: 24px;
+  cursor: pointer;
+  color: #e74c3c;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2; /* Aseguramos que el botón de cerrar esté encima de la capa */
+}
+
+
+    .iniciales-afv {
+      margin-top: 60px; /* antes 30px */
+      text-align: center;
+      font-family: 'Brush Script MT', cursive;
+      font-size: 2rem;
+      color: #ffcc00;
+      letter-spacing: 0.5rem;
+      text-shadow: 2px 2px 8px #000, 0 0 10px #8b6b4e;
+    }
+    .iniciales-afv2 {
+      margin-top: 30px; /* antes 30px */
+      text-align: right;
+      font-family: 'Brush Script MT', cursive;
+      font-size: 1.2rem;
+      color: #ffcc00;
+      letter-spacing: 0.5rem;
+      text-shadow: 2px 2px 8px #000, 0 0 10px #8b6b4e;
+    }
+
+    .titulo-top {
+      position: absolute;
+      top: 30px; 
+      bottom: auto;
+      font-family: 'Brush Script MT', cursive;
+      font-size: 2rem;
+      color: #ffcc00;
+      letter-spacing: 0.5rem;
+      text-shadow: 2px 2px 8px #000, 0 0 10px #8b6b4e;
+    }
+    .video-secundario {
+    width: 100%; 
+    margin: 0 auto;
+    display: block;
+  }
+  </style>
+</head>
+<body>
+  <div class="titulo-top">Siempre Recuerda!!</div>
+  <div class="scene">
+    <div class="cube">
+      <div class="face front" data-face="¡Hola! Siempre recuerda lo importante." data-img="kirby2.jpeg" data-audio="preludebattle.ogg"></div>
+<div class="face back" data-face="¡Nunca olvides lo que has aprendido!" data-img="kirby3.jpeg" data-audio="storm.ogg"></div>
+<div class="face right" data-face="La vida siempre es una aventura." data-img="kirby4.jpeg" data-audio="storm.ogg"></div>
+<div class="face left" data-face="Recuerda tus sueños y metas." data-img="kirby5.jpeg" data-audio="zanarkand.ogg"></div>
+<div class="face top" data-face="No dejes que nada te detenga." data-img="kirby6.jpeg" data-audio="zelda2.ogg"></div>
+<div class="face bottom" data-face="El amor siempre es la respuesta." data-img="kirby1.webp" data-audio="zelda.ogg"></div>
+</div>
+    <div class="iniciales-afv">..MAJ..</div>
+    <div>
+          <video src="realkirby_seen.mp4" autoplay loop muted playsinline class="video-secundario"></video>
+    </div>
+    <div class="iniciales-afv2">..AD🦁..</div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content" id="modalContent">
+      <span class="close" id="closeModal">&times;</span>
+      <h2 id="modalText">¡Has hecho clic en el cubo!</h2>
+    </div>
+  </div>
+
+<script>
+  // Obtener elementos del DOM
+  const faces = document.querySelectorAll('.face');
+  const modal = document.getElementById('modal');
+  const modalText = document.getElementById('modalText');
+  const closeModal = document.getElementById('closeModal');
+  const modalContent = document.getElementById('modalContent');
+
+  // Variable global para guardar el timeout
+  let typingTimeout;
+  let typingId = 0; // Identificador único para cada animación
+
+  function typeTextAnimated(text) {
+    modalText.textContent = '';
+    let i = 0;
+    const myId = ++typingId; 
+
+    function type() {
+      // Si ya hay una nueva animación, no continuar
+      if (myId !== typingId) return;
+      if (i < text.length) {
+        modalText.textContent += text.charAt(i);
+        i++;
+        typingTimeout = setTimeout(type, 200);
+      }
+    }
+    type();
+  }
+
+faces.forEach(face => {
+  face.addEventListener('click', () => {
+    typingId++;
+    clearTimeout(typingTimeout);
+    modalText.textContent = '';
+
+    setTimeout(() => {
+      let text = `${face.getAttribute('data-face')}!`;
+      typeTextAnimated(text);
+
+      modalContent.style.backgroundImage = `url('${face.getAttribute('data-img')}')`;
+
+      if (window.currentAudio) {
+        window.currentAudio.pause();
+        window.currentAudio.currentTime = 0;
+      }
+      const audioUrl = face.getAttribute('data-audio');
+      if (audioUrl) {
+        window.currentAudio = new Audio(audioUrl);
+        window.currentAudio.play();
+      }
+
+      modal.style.display = 'flex';
+    }, 300);
+  });
+});
+
+closeModal.addEventListener('click', () => {
+  modal.style.display = 'none';
+  if (window.currentAudio) {
+    window.currentAudio.pause();
+    window.currentAudio.currentTime = 0;
+  }
+  modalText.textContent = '';
+  typingId++;
+  clearTimeout(typingTimeout);
+});
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    modal.style.display = 'none';
+    if (window.currentAudio) {
+      window.currentAudio.pause();
+      window.currentAudio.currentTime = 0;
+    }
+    modalText.textContent = '';
+    typingId++;
+    clearTimeout(typingTimeout);
+  }
+});
+</script>
+
+</body>
+</html>
